@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/SOULHUZAIFA/task-manager-api.git'
+                git branch: 'main', url: 'https://github.com/SOULHUZAIFA/task-manager-api.git'
             }
         }
         stage('Build Docker Image') {
@@ -19,25 +19,24 @@ pipeline {
         }
         stage('Run Unit Tests in Docker') {
             steps {
-                sh 'docker run --rm $IMAGE_NAME pytest'
+                sh 'docker run --rm $IMAGE_NAME pytest || exit 1'
             }
         }
         stage('Stop Existing Container') {
             steps {
                 script {
-                    sh 'docker stop $CONTAINER_NAME || true'
-                    sh 'docker rm $CONTAINER_NAME || true'
+                    sh 'docker ps -q --filter "name=$CONTAINER_NAME" | grep -q . && docker stop $CONTAINER_NAME && docker rm $CONTAINER_NAME || true'
                 }
             }
         }
         stage('Run New Container') {
             steps {
-                sh 'docker run -d --name $CONTAINER_NAME -p 5000:5000 $IMAGE_NAME'
+                sh 'docker run -d --name $CONTAINER_NAME -p 5001:5000 $IMAGE_NAME'
             }
         }
         stage('Cleanup') {
             steps {
-                sh 'docker system prune -f'
+                sh 'docker image prune -f'
             }
         }
     }

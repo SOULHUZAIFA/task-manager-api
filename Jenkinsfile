@@ -4,6 +4,8 @@ pipeline {
     environment {
         IMAGE_NAME = "task-manager-api"
         CONTAINER_NAME = "task-manager"
+        DOCKER_HOST = "unix:///Users/huzaifamehdi/.docker/run/docker.sock"
+        PATH = "/usr/local/bin:${PATH}"
     }
 
     stages {
@@ -14,9 +16,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'DOCKER_HOST=unix:///Users/huzaifamehdi/.docker/run/docker.sock docker build -t task-manager-api .'
+                sh '/usr/local/bin/docker build -t task-manager-api .'
             }
-    }
+        }
         stage('Run Unit Tests in Docker') {
             steps {
                 sh 'docker run --rm $IMAGE_NAME pytest || exit 1'

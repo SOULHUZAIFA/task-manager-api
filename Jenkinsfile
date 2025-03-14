@@ -22,6 +22,8 @@ pipeline {
         stage('Run Unit Tests in Docker') {
             steps {
                 script {
+                    // Clean up any existing MongoDB container
+                    sh 'docker ps -q --filter "name=mongodb" | grep -q . && docker stop mongodb && docker rm mongodb || true'
                     // Start MongoDB container
                     sh 'docker run -d --name mongodb -p 27017:27017 mongo'
                     // Wait for MongoDB to be ready

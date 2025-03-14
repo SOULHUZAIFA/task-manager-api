@@ -14,9 +14,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh 'DOCKER_HOST=unix:///Users/huzaifamehdi/.docker/run/docker.sock docker build -t task-manager-api .'
             }
-        }
+    }
         stage('Run Unit Tests in Docker') {
             steps {
                 sh 'docker run --rm $IMAGE_NAME pytest || exit 1'

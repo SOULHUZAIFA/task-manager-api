@@ -27,7 +27,7 @@ pipeline {
                     // Start MongoDB container
                     sh 'docker run -d --name mongodb -p 27017:27017 mongo'
                     // Wait for MongoDB to be ready
-                    sh 'while ! docker exec mongodb mongo --eval "db.adminCommand(\'ping\')"; do sleep 1; done'
+                    sh 'while ! docker exec mongodb mongosh --eval "db.adminCommand(\'ping\')"; do sleep 1; done'
                     // Run tests with MongoDB connection
                     sh 'docker run --rm --link mongodb:mongo -e MONGO_URI=mongodb://mongo:27017 $IMAGE_NAME pytest || exit 1'
                 }

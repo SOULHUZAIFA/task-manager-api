@@ -5,11 +5,27 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-5.0+-brightgreen.svg)](https://www.mongodb.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+```mermaid
+graph TD
+    A[Client] --> B[API Gateway]
+    B --> C[Task Manager API]
+    C --> D[MongoDB]
+    C --> E[Authentication Service]
+    C --> F[Logging Service]
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#bbf,stroke:#333,stroke-width:4px
+    style C fill:#fbb,stroke:#333,stroke-width:4px
+    style D fill:#bfb,stroke:#333,stroke-width:4px
+    style E fill:#fbf,stroke:#333,stroke-width:4px
+    style F fill:#ffb,stroke:#333,stroke-width:4px
+```
+
 A robust Flask-based Task Manager API with MongoDB integration, Docker containerization, and Jenkins CI/CD pipeline for automated deployment.
 
 ## 📋 Table of Contents
 
 - [Features](#-features)
+- [Architecture](#-architecture)
 - [Project Structure](#-project-structure)
 - [Setup & Installation](#-setup--installation)
 - [Running with Docker](#-running-with-docker)
@@ -29,22 +45,5 @@ A robust Flask-based Task Manager API with MongoDB integration, Docker container
 - **CI/CD Pipeline**: Automated testing and deployment with Jenkins
 - **RESTful API**: Clean and well-documented endpoints
 - **Scalable Architecture**: Designed for easy scaling and maintenance
-
-## 🗂 Project Structure
-
-```
-task-manager-api/
-├── .github/workflows/       # GitHub Actions CI/CD workflows
-├── tests/                   # Unit and integration tests
-├── .gitignore               # Git ignore rules
-├── Jenkinsfile              # Jenkins pipeline configuration
-├── Dockerfile               # Docker container configuration
-├── requirements.txt         # Python dependencies
-├── app.py                   # Main application entry point
-├── database.py              # MongoDB connection and setup
-├── task_routes.py           # Task-related API routes
-├── models.py                # Data models and schemas
-└── README.md                # Project documentation
-```
 
 [Rest of content truncated for brevity]
